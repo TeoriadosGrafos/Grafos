@@ -5,6 +5,10 @@
  */
 package Model;
 
+/**
+ *
+ * @author Ana
+ */
 public class Aresta {
     private int numeroAresta;
     private Vertice vertice;
