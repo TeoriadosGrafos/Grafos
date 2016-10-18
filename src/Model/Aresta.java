@@ -1,36 +1,89 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Trabalho de Teoria dos Grafos
+Equipe: Antonio Celestino, Nathan Manera, Pedro Ferreira e Rafael Paiva
+Professor: Daves Martins
+4º Período BSI - IF Sudeste MG Juiz de Fora
  */
-package Model;
+package grafosxml;
 
-public class Aresta {
-    private int numeroAresta;
-    private Vertice vertice;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import java.util.List;
 
-    public int getNumeroAresta() {
-        return numeroAresta;
+
+@XStreamAlias("edge")
+public class Aresta implements Comparable<Aresta>{
+    @XStreamAlias("source")
+    @XStreamAsAttribute
+    private String origem;
+    @XStreamAlias("target")
+    @XStreamAsAttribute
+    private String destino;
+    @XStreamAlias("name")
+    @XStreamAsAttribute
+    private String nomeAresta;
+    @XStreamAlias("value")  
+    @XStreamAsAttribute
+    private int valorAresta;
+
+    public Aresta( String nomeAresta, int valorAresta, String origem, String destino) {
+        this.nomeAresta = nomeAresta;
+        this.valorAresta = valorAresta;
+        this.origem = origem;
+        this.destino = destino;
     }
 
-    public void setNumeroAresta(int numeroAresta) {
-        this.numeroAresta = numeroAresta;
+    public int getValorAresta() {
+        return valorAresta;
     }
 
-    public Vertice getVertice() {
-        return vertice;
+    public void setValorAresta(int valorAresta) {
+        this.valorAresta = valorAresta;
     }
 
-    public void setVertice(Vertice vertice) {
-        this.vertice = vertice;
+    public String getOrigem() {
+        return origem;
     }
 
-    public Aresta() {
+    public void setOrigem(String origem) {
+        this.origem = origem;
     }
 
-    public Aresta(int numeroAresta, Vertice vertice) {
-        this.numeroAresta = numeroAresta;
-        this.vertice = vertice;
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    public String getNomeAresta() {
+        return nomeAresta;
+    }
+
+    public void setNomeAresta(String nomeAresta) {
+        this.nomeAresta = nomeAresta;
     }
     
+    public int compareTo(Aresta aresta) {
+        if(this.valorAresta < aresta.valorAresta){
+            return -1;
+        }
+        else if(this.valorAresta > aresta.valorAresta){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    
+    public static Aresta getArestaByNos(No origem, No destino, List<Aresta> arestas) {
+        for (Aresta aresta : arestas) {
+            if (aresta.getOrigem().equals(origem.getId()) && aresta.getDestino().equals(destino.getId())) {
+                return aresta;
+            }
+
+        }
+        return null;
+    }
 }
